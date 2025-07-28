@@ -1,0 +1,129 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="images\1.png" />
+    <None Remove="images\2.png" />
+    <None Remove="images\3.png" />
+    <None Remove="images\4.png" />
+    <None Remove="images\5.png" />
+    <None Remove="images\6.png" />
+    <None Remove="images\7.png" />
+    <None Remove="images\8.png" />
+    <None Remove="images\amy-leigh-barnard-H3APOiYLyzk-unsplash.jpg" />
+    <None Remove="images\andrea-de-santis-zxIRbjlvIQM-unsplash.jpg" />
+    <None Remove="images\andrew-faires-V1RLTNjlBW8-unsplash.jpg" />
+    <None Remove="images\andrew-neel-acowe0pCVBg-unsplash.jpg" />
+    <None Remove="images\artur-matosyan-4YWUMaftmag-unsplash.jpg" />
+    <None Remove="images\egor-myznik-tHGIV1GIutY-unsplash.jpg" />
+    <None Remove="images\flickch-GHzc38NRGrA-unsplash.jpg" />
+    <None Remove="images\frame1.png" />
+    <None Remove="images\hester-qiang-bSrqpoOz7Ec-unsplash.jpg" />
+    <None Remove="images\interior-shot-museums-vatican-city.jpg" />
+    <None Remove="images\josh-liu-Tjio9DgtIls-unsplash.jpg" />
+    <None Remove="images\kevin-laminto-iRZQjV--Z_4-unsplash.jpg" />
+    <None Remove="images\laura-adai-ecr6OdwJa6Y-unsplash.jpg" />
+    <None Remove="images\person_15675993.png" />
+    <None Remove="images\princess.png" />
+    <None Remove="images\roman-akash-QFKJSPPYMmI-unsplash.jpg" />
+    <None Remove="images\user_12344961.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\6.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\3.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\4.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\5.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\7.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\8.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\amy-leigh-barnard-H3APOiYLyzk-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\andrew-faires-V1RLTNjlBW8-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\artur-matosyan-4YWUMaftmag-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\egor-myznik-tHGIV1GIutY-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\flickch-GHzc38NRGrA-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\frame1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\hester-qiang-bSrqpoOz7Ec-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\interior-shot-museums-vatican-city.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\josh-liu-Tjio9DgtIls-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\kevin-laminto-iRZQjV--Z_4-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\laura-adai-ecr6OdwJa6Y-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\andrea-de-santis-zxIRbjlvIQM-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\andrew-neel-acowe0pCVBg-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\person_15675993.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\princess.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\roman-akash-QFKJSPPYMmI-unsplash.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\user_12344961.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+</Project>

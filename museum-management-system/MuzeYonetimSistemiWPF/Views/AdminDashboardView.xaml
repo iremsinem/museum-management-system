@@ -1,0 +1,223 @@
+﻿<Window x:Class="MuzeYonetimSistemiWPF.Views.AdminDashboardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MuzeYonetimSistemiWPF.Views"
+        mc:Ignorable="d" 
+        Title="Yönetim Paneli" d:DesignHeight="1080" d:DesignWidth="1920" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        WindowState="Maximized" 
+>
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="11"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            BorderBrush="#FF531414"
+                                Height="26"
+                            BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="IconButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF531414"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0" Background="#FF531414" VerticalAlignment="Stretch">
+            <TextBlock
+                       TextWrapping="Wrap"
+                        FontSize="30"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Margin="20,40,20,20"
+                        TextAlignment="Center"
+                        HorizontalAlignment="Center"
+                       ><Run Text="Yönetim "/><LineBreak/><Run Text="Paneli"/></TextBlock>
+            
+            <Label x:Name="lblKullanici"
+                   Content="Hoş geldiniz"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="20"
+                   Margin="20,70,0,0"
+                   HorizontalAlignment="Left"/>
+        
+        <StackPanel Grid.Column="0" Background="#FF531414" VerticalAlignment="Stretch">
+            <!-- Başlık -->
+            
+
+            <!-- Bilgi Kutuları -->
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="160">
+
+                <!-- Eser Sayısı -->
+                <Border BorderThickness="4" BorderBrush="#FFD58B" CornerRadius="12" Background="White" Margin="0,60" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Toplam Eser" Foreground="Black" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
+                        <Label x:Name="lblEserSayisi" FontSize="24" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Bağış Sayısı -->
+                <Border BorderThickness="4" BorderBrush="#FFD58B" CornerRadius="12" Background="White" Margin="0,50" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Toplam Bağış" Foreground="Black" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
+                        <Label x:Name="lblBagisSayisi" FontSize="24" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Sergi Sayısı -->
+                <Border BorderThickness="4" BorderBrush="#FFD58B" CornerRadius="12" Background="White" Margin="0,50" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Toplam Sergi" Foreground="Black" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
+                        <Label x:Name="lblSergiSayisi" FontSize="24" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+        </StackPanel>
+
+
+
+        <Grid Grid.Column="1">
+            <Image Source="/images/laura-adai-ecr6OdwJa6Y-unsplash.jpg"
+               Stretch="Fill"
+               Panel.ZIndex="0"
+              />
+
+            <Grid Margin="100,40,20,20" Panel.ZIndex="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="330"/>
+                    <ColumnDefinition Width="330"/>
+                    <ColumnDefinition Width="330"/>
+                    <ColumnDefinition Width="330"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 1.satır  -->
+                <Border Grid.Row="0" Grid.Column="0" CornerRadius="20" Background="#CCFFFFFF" Margin="10,10,20,10">
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" >
+                        <Image Source="/images/1.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnEser" Content="Eser Yönetimi" Click="BtnEser_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="130" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1" CornerRadius="20" Background="#CCFFFFFF"  Margin="10,10,20,10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/2.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnSergi" Content="Sergi Yönetimi" Click="BtnSergi_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="130" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="2" CornerRadius="20" Background="#CCFFFFFF"  Margin="10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/3.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnEtkinlik" Content="Etkinlik Yönetimi" Click="BtnEtkinlik_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="130" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <!-- 2. Satır -->
+                <Border Grid.Row="1" Grid.Column="0" CornerRadius="20" Background="#CCFFFFFF" Margin="10,10,20,10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/4.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnSanatAkim" Content="Sanat Akım Yönetimi" Click="BtnSanatAkim_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="140" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1" CornerRadius="20" Background="#CCFFFFFF" Margin="10,10,20,10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/5.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnSanatci" Content="Sanatçı Akım Yönetimi" Click="BtnSanatci_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="150" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="2" CornerRadius="20" Background="#CCFFFFFF" Margin="10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/6.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnPersonel" Content="Personel Yönetimi" Click="BtnPersonel_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="140" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <!-- 3. Satır -->
+                <Border Grid.Row="2" Grid.Column="0" CornerRadius="20" Background="#CCFFFFFF" Margin="10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/7.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnGelir" Content="Gelir/Gider Yönetimi" Click="BtnGelir_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="140" Margin="0,35,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="1" CornerRadius="20" Background="#CCFFFFFF" Margin="10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/8.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnZiyaretci" Content="Ziyaretçi Yönetimi" Click="BtnZiyaretci_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="140" Margin="0,35,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="2" CornerRadius="20" Background="#CCFFFFFF" Margin="10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Source="/images/8.png" Width="280" Height="150" Stretch="Uniform"/>
+                        <Button x:Name="BtnEserBakim" Content="Eser Bakım Yönetimi " Click="BtnEserBakim_Click" Style="{StaticResource MenuButtonStyle}" Background="#FF531414" FontSize="11" Height="30" Width="140" Margin="0,35,0,0" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+
+        </Grid>
+
+        <ContentControl x:Name="icerikKontrol" Grid.Column="1" HorizontalAlignment="Center" Width="1710" Height="1054" VerticalAlignment="Top" />
+        
+
+    </Grid>
+
+</Window>

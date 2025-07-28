@@ -1,0 +1,196 @@
+﻿<Window x:Class="MuzeYonetimSistemiWPF.Views.EtkinlikYonetimiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:MuzeYonetimSistemiWPF.Views"
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        Title="Etkinlik Yönetimi">
+
+    <!-- 🎨 Arka Plan Resmi -->
+    <Window.Background>
+        <ImageBrush ImageSource="/images/andrea-de-santis-zxIRbjlvIQM-unsplash.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <Window.Resources>
+        <!-- Placeholder için converter -->
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <!-- 🎨 Yuvarlak, Renkli Buton Stili -->
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="10,2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- 🔲 Siyah zeminli, yumuşak kenarlı Placeholder TextBox -->
+        <Style x:Key="DarkPlaceholderTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#222"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <Grid>
+                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                                <TextBlock Text="{TemplateBinding Tag}"
+                                           Foreground="Gray"
+                                           Margin="5,0,0,0"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False"
+                                           Visibility="{Binding Text.IsEmpty, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+
+            <!-- Etkinlik Türü Bölümü -->
+            <GroupBox Margin="0,10" Foreground="White" BorderBrush="#F2BC57" Background="#AA222222" BorderThickness="2">
+                <GroupBox.Header>
+                    <TextBlock Text="Etkinlik Türü" FontSize="14" FontWeight="Bold"/>
+                </GroupBox.Header>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Form Satırı -->
+                    <DockPanel Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                            <StackPanel Margin="5">
+                                <Label Content="Tür Adı" Foreground="White"/>
+                                <TextBox x:Name="txtTur" Width="200" Tag="Ad" Style="{StaticResource DarkPlaceholderTextBox}"/>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Label Content="Açıklama" Foreground="White"/>
+                                <TextBox x:Name="txtEtkinlikTuruAciklama" Width="300" Tag="Açıklama" Style="{StaticResource DarkPlaceholderTextBox}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="5">
+                            <Button x:Name="BtnEtkinlikTuruEkle" Content="Ekle" Width="90" Margin="5" Click="BtnEtkinlikTuruEkle_Click" Background="#28a745" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button x:Name="BtnEtkinlikTuruGuncelle" Content="Güncelle" Width="90" Margin="5" Click="BtnEtkinlikTuruGuncelle_Click" Background="#ffc107" Foreground="Black" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button x:Name="BtnEtkinlikTuruSil" Content="Sil" Width="90" Margin="5" Click="BtnEtkinlikTuruSil_Click" Background="#dc3545" Style="{StaticResource RoundedButtonStyle}"/>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <!-- Liste -->
+                    <Border Grid.Row="1" Background="#AA000000" BorderBrush="#F2BC57" BorderThickness="1" CornerRadius="10">
+                        <DataGrid x:Name="dgEtkinlikTurleri"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  SelectionMode="Single"
+                                  Height="300"
+                                  Margin="5">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="40"/>
+                                <DataGridTextColumn Header="Ad" Binding="{Binding Ad}" Width="*"/>
+                                <DataGridTextColumn Header="Açıklama" Binding="{Binding Aciklama}" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </GroupBox>
+
+            <!-- Etkinlikler Bölümü -->
+            <GroupBox Margin="0,10" Foreground="White" BorderBrush="#F2BC57" Background="#AA222222" BorderThickness="1">
+                <GroupBox.Header>
+                    <TextBlock Text="Etkinlikler" FontSize="14" FontWeight="Bold"/>
+                </GroupBox.Header>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Üst Form -->
+                    <DockPanel Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                            <StackPanel Margin="5">
+                                <Label Content="Etkinlik Adı" Foreground="White"/>
+                                <TextBox x:Name="txtEtkinlikAd" Width="140" Tag="Etkinlik Adı" Style="{StaticResource DarkPlaceholderTextBox}"/>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Label Content="Etkinlik Türü" Foreground="White"/>
+                                <ComboBox x:Name="cmbEtkinlikTuru" Width="140" DisplayMemberPath="Ad" SelectedValuePath="ID"/>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Label Content="Başlangıç Tarihi" Foreground="White"/>
+                                <DatePicker x:Name="dpBaslangic" Height="30"/>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Label Content="Bitiş Tarihi" Foreground="White"/>
+                                <DatePicker x:Name="dpBitis" Height="30"/>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <Label Content="Açıklama" Foreground="White"/>
+                                <TextBox x:Name="txtEtkinlikAciklama" Width="200" Tag="Açıklama" Style="{StaticResource DarkPlaceholderTextBox}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Sağ Butonlar -->
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="5">
+                            <Button x:Name="BtnEtkinlikEkle" Content="Ekle" Width="90" Margin="5" Click="BtnEtkinlikEkle_Click" Background="#28a745" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button x:Name="BtnEtkinlikGuncelle" Content="Güncelle" Width="90" Margin="5" Click="BtnEtkinlikGuncelle_Click" Background="#ffc107" Foreground="Black" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button x:Name="BtnEtkinlikSil" Content="Sil" Width="90" Margin="5" Click="BtnEtkinlikSil_Click" Background="#dc3545" Style="{StaticResource RoundedButtonStyle}"/>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <!-- Alt Liste -->
+                    <Border Grid.Row="1" Background="#AA000000" BorderBrush="#F2BC57" BorderThickness="1" CornerRadius="10">
+                        <DataGrid x:Name="dgEtkinlikler"
+                                  SelectionChanged="DgEtkinlikler_SelectionChanged"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  SelectionMode="Single"
+                                  Height="300"
+                                  Margin="5">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="40"/>
+                                <DataGridTextColumn Header="Ad" Binding="{Binding Ad}" Width="*"/>
+                                <DataGridTextColumn Header="Tür" Binding="{Binding EtkinlikTuruAd}" Width="*"/>
+                                <DataGridTextColumn Header="Açıklama" Binding="{Binding Aciklama}" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

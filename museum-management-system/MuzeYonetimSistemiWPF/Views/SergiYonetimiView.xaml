@@ -1,0 +1,181 @@
+﻿<Window x:Class="MuzeYonetimSistemiWPF.Views.SergiYonetimiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Sergi Yönetimi"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#A00000"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- 🎨 Arka plan -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/images/kevin-laminto-iRZQjV--Z_4-unsplash.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <!-- Sayfa Düzeni -->
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <!-- ÜST: Ekleme ve Görüntüleme -->
+                <RowDefinition Height="2*"/>
+                <!-- ALT: Mevcut Sergiler -->
+            </Grid.RowDefinitions>
+
+            <!-- 🧭 ÜST BÖLÜM: Sol - Sağ -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Sol: Yeni Sergi Ekle + Sergiye Eser Ekle -->
+                <StackPanel Grid.Column="0">
+                    <!-- Yeni Sergi Ekle -->
+                    <GroupBox Margin="0,0,0,8" BorderBrush="#F2BC57" Background="#AA222222" Foreground="White">
+                        <GroupBox.Header>
+                            <TextBlock Text="Yeni Sergi Ekle" FontSize="14" FontWeight="Bold"/>
+                        </GroupBox.Header>
+                        <StackPanel Margin="10">
+                            <WrapPanel Margin="0,0,0,10">
+                                <StackPanel Margin="0,0,10,0">
+                                    <Label Content="Sergi Adı" Foreground="White"/>
+                                    <TextBox x:Name="txtSergiAd" Width="150"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,10,0">
+                                    <Label Content="Konum" Foreground="White"/>
+                                    <TextBox x:Name="txtKonum" Width="150"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,10,0">
+                                    <Label Content="Açıklama" Foreground="White"/>
+                                    <TextBox x:Name="txtAciklama" Width="200"/>
+                                </StackPanel>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <StackPanel Margin="0,0,10,0">
+                                    <Label Content="Başlangıç Tarihi" Foreground="White"/>
+                                    <DatePicker x:Name="dpBaslangic" Width="130"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,10,0">
+                                    <Label Content="Bitiş Tarihi" Foreground="White"/>
+                                    <DatePicker x:Name="dpBitis" Width="130"/>
+                                </StackPanel>
+                                <Button x:Name="btnSergiEkle" Content="Ekle" Width="100" Margin="0,23,0,0"
+                    Click="btnSergiEkle_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Sergiye Eser Ekle -->
+                    <GroupBox Margin="0,0,0,8" BorderBrush="#F2BC57" Background="#AA222222" Foreground="White">
+                        <GroupBox.Header>
+                            <TextBlock Text="Sergiye Eser Ekle" FontSize="14" FontWeight="Bold"/>
+                        </GroupBox.Header>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <StackPanel Margin="0,0,10,0">
+                                <Label Content="Sergi Seçin" Foreground="White"/>
+                                <ComboBox x:Name="cbSergiSecAdd" Width="200" DisplayMemberPath="Ad" SelectedValuePath="ID"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,0,10,0">
+                                <Label Content="Eser Seçin" Foreground="White"/>
+                                <ComboBox x:Name="cbEserSecAdd" Width="200" DisplayMemberPath="Ad" SelectedValuePath="ID"/>
+                            </StackPanel>
+                            <Button x:Name="BtnEserSergiyeEkle" Content="Ekle" Width="90" Margin="0,23,0,0" Click="BtnEserSergiyeEkle_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+
+                <!-- Sağ: Sergi - Eser Görüntüleme -->
+                <!-- Sağ: Sergi - Eser Görüntüleme -->
+                <GroupBox Grid.Column="1" BorderBrush="#F2BC57" Background="#AA222222" Foreground="White">
+                    <GroupBox.Header>
+                        <TextBlock Text="Sergi - Eser Görüntüleme" FontSize="14" FontWeight="Bold"/>
+                    </GroupBox.Header>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- 🔻 ComboBox + Temizle -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,8">
+                            <Label Content="Sergi Seçin:" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <ComboBox x:Name="cbSergiSecView" Width="250" DisplayMemberPath="Ad" SelectedValuePath="ID" SelectionChanged="cbSergiSecView_SelectionChanged"/>
+                            <Button Content="Temizle" Width="80" Margin="10,0,0,0" Style="{StaticResource RoundedButtonStyle}" Click="BtnTemizleSergiSecView_Click"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="dgSergiEserler" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Margin="0,0,0,5">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Eser ID" Binding="{Binding ID}" Width="70"/>
+                                <DataGridTextColumn Header="Eser Adı" Binding="{Binding Ad}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+                            <Button x:Name="BtnEserSergiGuncelle" Content="Güncelle" Width="90" Margin="5,0" Click="BtnEserSergiGuncelle_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button x:Name="BtnEserSergiSil"  Content="Sil" Width="90" Margin="5,0" Click="BtnEserSergiSil_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+            </Grid>
+
+            <!-- 📋 Mevcut Sergiler -->
+            <GroupBox Grid.Row="1" Header="Mevcut Sergiler"
+              BorderBrush="#F2BC57" Background="#AA222222"
+              Foreground="White" FontWeight="Bold" Margin="0,20,0,0">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="dgSergiler" Grid.Row="0"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="False" SelectionMode="Single"
+                      HeadersVisibility="Column"
+                      Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"         Binding="{Binding ID}" Width="50"/>
+                            <DataGridTextColumn Header="Ad"         Binding="{Binding Ad}" Width="330"/>
+                            <DataGridTextColumn Header="Başlangıç"  Binding="{Binding BaslangicTarihi, StringFormat=d}" Width="190"/>
+                            <DataGridTextColumn Header="Bitiş"      Binding="{Binding BitisTarihi, StringFormat=d}" Width="190"/>
+                            <DataGridTextColumn Header="Konum"      Binding="{Binding Konum}" Width="280"/>
+                            <DataGridTextColumn Header="Açıklama"   Binding="{Binding Aciklama}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1"
+                        HorizontalAlignment="Right" Margin="0,5,10,0">
+                        <Button x:Name="BtnSergiGuncelle" Content="Güncelle" Width="90" Height="30" Margin="5,0"
+                        Click="BtnSergiGuncelle_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                        <Button x:Name="BtnSergiSil" Content="Sil"      Width="90" Height="30" Margin="5,0"
+                        Click="BtnSergiSil_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,314 @@
+﻿<Window x:Class="MuzeYonetimSistemiWPF.Views.SanatciYonetimiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Sanatçı Yönetimi"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        ResizeMode="NoResize"
+        d:DesignHeight="450"
+        d:DesignWidth="800">
+
+    <!-- 🔳 Arka plan resmi -->
+    <Window.Background>
+        <ImageBrush ImageSource="/images/interior-shot-museums-vatican-city.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF531414"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="10,5,0,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="PlaceholderTextBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="BorderBrush" Value="#666"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6">
+                            <Grid>
+                                <!-- ✅ Asıl yazı bağlanıyor -->
+                                <TextBox x:Name="InnerTextBox"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Foreground="{TemplateBinding Foreground}"
+                                 Padding="5"
+                                 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 CaretBrush="White"/>
+                                <!-- ✅ Placeholder metni -->
+                                <TextBlock x:Name="placeholder"
+                                   Text="{TemplateBinding Tag}"
+                                   Foreground="Gray"
+                                   Padding="5"
+                                   IsHitTestVisible="False"
+                                   Visibility="Collapsed"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="InnerTextBox" Property="Text" Value="">
+                                <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Üstte iki sütun: Ekleme ve Liste -->
+            <RowDefinition Height="Auto"/>
+            <!-- Altta tek parça: İlişkiler -->
+        </Grid.RowDefinitions>
+
+        <!-- ÜST KISIM: SOL VE SAĞ SÜTUN -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+           
+           
+            <!-- Yeni Sanatçı Ekle -->
+            <GroupBox 
+          Grid.Column="0"
+          Margin="10"
+          Foreground="White"
+          BorderBrush="#F2BC57"
+          BorderThickness="2"
+          Background="#AA222222">
+                <GroupBox.Header>
+                    <TextBlock Text="Yeni Sanatçı Ekle" FontSize="14" FontWeight="Bold"/>
+                </GroupBox.Header>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <!-- label daha uzak -->
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Ad -->
+                    <TextBlock Text="Ad:" Grid.Row="0" Grid.Column="0" Margin="20,5,5,5" 
+                   Foreground="White" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtSanatciAd"
+                 Grid.Row="0" Grid.Column="1" Margin="0,5"
+                 Style="{StaticResource PlaceholderTextBox}" Tag="Sanatçı adı" Height="25"/>
+
+                    <!-- Doğum Tarihi -->
+                    <TextBlock Text="Doğum Tarihi:" Grid.Row="1" Grid.Column="0" Margin="20,5,5,5" 
+                   Foreground="White" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dpDogumTarihi"
+                    Grid.Row="1" Grid.Column="1" Margin="0,5"
+                    HorizontalAlignment="Left" BorderThickness="0" Height="32" Width="180"/>
+
+                    <!-- Ölüm Tarihi -->
+                    <TextBlock Text="Ölüm Tarihi:" Grid.Row="2" Grid.Column="0" Margin="20,5,5,5" 
+                   Foreground="White" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dpOlumTarihi"
+                    Grid.Row="2" Grid.Column="1" Margin="0,5"
+                    BorderThickness="0" Height="32" Width="180" HorizontalAlignment="Left"/>
+
+                    <!-- Ülke -->
+                    <TextBlock Text="Ülke:" Grid.Row="3" Grid.Column="0" Margin="20,5,5,5" 
+                   Foreground="White" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtUlke"
+                 Grid.Row="3" Grid.Column="1" Margin="0,5"
+                 Style="{StaticResource PlaceholderTextBox}" Tag="Ülke" Height="25"/>
+
+                    <!-- Biyografi -->
+                    <TextBlock Text="Biyografi:" Grid.Row="4" Grid.Column="0" Margin="20,5,5,5" 
+                   Foreground="White" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBiyografi"
+                 Grid.Row="4" Grid.Column="1" Margin="0,5"
+                 Style="{StaticResource PlaceholderTextBox}" Tag="Kısa biyografi"
+                 AcceptsReturn="True" Height="60"/>
+
+                    <!-- Ekle Butonu -->
+                    <Button x:Name="BtnSanatciEkle"
+                Content="Ekle"
+                Width="100"
+                Height="30"
+                Grid.Row="5"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                Margin="0,10,0,0"
+                Style="{StaticResource RoundedButtonStyle}"
+                Click="BtnEkle_Click"/>
+                </Grid>
+            </GroupBox>
+
+            
+            <!-- Sanatçı Listesi -->
+            <GroupBox 
+          Grid.Column="1"
+          Margin="10"
+          Foreground="White"
+          BorderBrush="#F2BC57"
+          BorderThickness="2"
+          Background="#AA222222">
+                <GroupBox.Header>
+                    <TextBlock Text="Sanatçı Listesi" FontSize="14" FontWeight="Bold"/>
+                </GroupBox.Header>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Filtre -->
+                        <RowDefinition Height="*"/>
+                        <!-- DataGrid -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Butonlar -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Filtre -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Grid.Row="0">
+                        <Label Content="Ülkeye Göre Filtrele:" Foreground="White" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbUlkeFiltre" Width="150" SelectionChanged="cbUlkeFiltre_SelectionChanged"/>
+                        <Button Content="Temizle" Margin="10,0,0,0" Click="BtnTemizleFiltre_Click"
+                    Style="{StaticResource RoundedButtonStyle}" Width="80"/>
+                    </StackPanel>
+
+                    <!-- Liste -->
+                    <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="1"
+                Background="#AA222222" ClipToBounds="True" Grid.Row="1">
+                        <DataGrid x:Name="dgSanatcilar"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single"
+                      IsReadOnly="False"
+                      Background="#222222"
+                      Foreground="#CCCCCC"
+                      GridLinesVisibility="None"
+                      AlternationCount="2"
+                      RowBackground="#3A3A3A"
+                      AlternatingRowBackground="#2C2C2C"
+                      HeadersVisibility="Column"
+                      RowEditEnding="dgSanatcilar_RowEditEnding">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Background" Value="#DDD"/>
+                                    <Setter Property="Padding" Value="5"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="60" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Ad" Binding="{Binding Ad}" Width="*"/>
+                                <DataGridTextColumn Header="Doğum Tarihi" Binding="{Binding DogumTarihi, StringFormat=d}" Width="100"/>
+                                <DataGridTextColumn Header="Ölüm Tarihi" Binding="{Binding OlumTarihi, StringFormat=d}" Width="100"/>
+                                <DataGridTextColumn Header="Ülke" Binding="{Binding Ulke}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+
+                    <!-- Butonlar -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="0,10,0,0">
+                        <Button x:Name="BtnSanatciGuncelle" Content="Güncelle" Style="{StaticResource RoundedButtonStyle}" Width="90" Click="BtnGuncelle_Click"/>
+                        <Button x:Name="BtnSanatciSil" Content="Sil" Background="Red" Style="{StaticResource RoundedButtonStyle}" Width="90" Click="BtnSil_Click"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+
+        </Grid>
+
+       <!-- ALT KISIM: Sanatçı-Akım İlişkileri -->
+        <GroupBox 
+          Grid.Row="1"
+          Margin="10"
+          Foreground="White"
+          BorderBrush="#F2BC57"
+          BorderThickness="2"
+          Background="#AA222222">
+            <GroupBox.Header>
+                <TextBlock Text="Sanatçı – Akım İlişkileri" FontSize="14" FontWeight="Bold"/>
+            </GroupBox.Header>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Filtre -->
+                    <RowDefinition Height="*"/>
+                    <!-- Liste -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Butonlar -->
+                </Grid.RowDefinitions>
+
+                <!-- Filtre -->
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                    <Label Content="Akıma göre filtrele:" Foreground="White" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbAkimFiltre" SelectionChanged="cbAkimFiltre_SelectionChanged" Width="200" Margin="10,0" VerticalAlignment="Center"/>
+                    <Button Content="Temizle" Width="80" VerticalAlignment="Center"
+                    Style="{StaticResource RoundedButtonStyle}" Click="BtnTemizleAkimFiltre_Click"/>
+                </StackPanel>
+
+                <!-- Liste -->
+                <DataGrid x:Name="dgSanatciAkim"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Height="300"
+                  SelectionMode="Single"
+                  Background="#222222"
+                  Foreground="White"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="None"
+                  RowBackground="#3A3A3A"
+                  AlternatingRowBackground="#2C2C2C"
+                  Grid.Row="1">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Background" Value="#DDDDDD"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Sanatçı" Binding="{Binding SanatciAd}" Width="*"/>
+                        <DataGridTextColumn Header="Akım" Binding="{Binding AkimAd}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Butonlar -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="0,10,0,0">
+                    <Button x:Name="BtnAkimGuncelle" Content="Güncelle" Width="90"
+                    Style="{StaticResource RoundedButtonStyle}" Click="BtnAkimGuncelle_Click"/>
+                    <Button x:Name="BtnAkimSil" Content="Sil" Width="90" Background="Red"
+                    Style="{StaticResource RoundedButtonStyle}" Click="BtnAkimSil_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
